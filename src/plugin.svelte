@@ -67,6 +67,7 @@
   let gustWindow: { t: number; speed: number }[] = [];
   let connectionType = localStorage.getItem('shipPlugin_connType') ?? 'TCP';
   let baudRate = parseInt(localStorage.getItem('shipPlugin_baudRate') ?? '9600');
+  const MAX_PATH_POINTS = 50000;
   
   const GUST_WINDOW_MS = 3600_000; // 1h
 
@@ -980,6 +981,11 @@ onDestroy(() => {
   bcast.off('rqstOpen', resetActivityTimer);
 bcast.off('pluginOpened', resetActivityTimer);
 bcast.off('pluginClosed', resetActivityTimer);
+
+if (tcpInterval) {
+        clearInterval(tcpInterval);
+        tcpInterval = null;
+    }
 });
 
 function isUserIdle(): boolean {
@@ -1114,7 +1120,9 @@ function addBoatMarker(
      TRACE (PATH)
   ========================= */
   pathLatLngs.push(pos);
-
+  if (pathLatLngs.length > MAX_PATH_POINTS) {
+        pathLatLngs.shift(); // Remove the oldest point
+    }
   if (!boatPath) {
     boatPath = L.polyline(pathLatLngs, {
       color: '#e5533d',

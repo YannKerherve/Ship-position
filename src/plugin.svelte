@@ -1427,7 +1427,6 @@ function parseAISPosition(bits: string, ownShip = false) {
   const lat        = getInt(bits, latOff, 27, true) / 600000;
   const cog        = getInt(bits, cogOff, 12) / 10;
   const headingRaw = getInt(bits, hdgOff, 9);
-    const mmsi = getInt(bits, 8, 30);
     const now = Date.now();
 
     let t = aisTargets.get(mmsi);

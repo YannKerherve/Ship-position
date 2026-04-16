@@ -1412,11 +1412,21 @@ function getInt(bits: string, start: number, length: number, signed = false): nu
 /* ===================== DYNAMIQUE ===================== */
 
 function parseAISPosition(bits: string, ownShip = false) {
-    const lat = getInt(bits, 89, 27, true) / 600000;
-    const lon = getInt(bits, 61, 28, true) / 600000;
-    const cog = getInt(bits, 116, 12) / 10;
-    const sog = getInt(bits, 50, 10) / 10;
-    const headingRaw = getInt(bits, 128, 9);
+  const type = getInt(bits, 0, 6);
+  const isClassB = (type === 18);
+
+  const mmsi   = getInt(bits, 8, 30);
+  const sogOff = isClassB ? 46 : 50;
+  const lonOff = isClassB ? 57 : 61;
+  const latOff = isClassB ? 85 : 89;
+  const cogOff = isClassB ? 112 : 116;
+  const hdgOff = isClassB ? 124 : 128;
+
+  const sog        = getInt(bits, sogOff, 10) / 10;
+  const lon        = getInt(bits, lonOff, 28, true) / 600000;
+  const lat        = getInt(bits, latOff, 27, true) / 600000;
+  const cog        = getInt(bits, cogOff, 12) / 10;
+  const headingRaw = getInt(bits, hdgOff, 9);
     const mmsi = getInt(bits, 8, 30);
     const now = Date.now();
 

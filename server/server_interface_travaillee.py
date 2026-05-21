@@ -51,9 +51,12 @@ class WindyBridgeApp(ctk.CTk):
         self.geometry("520x640")
         self.configure(fg_color=WINDY_DARK)
 
+        
         try:
-            self.iconbitmap("ico.ico")
-            self.after(200, lambda: self.iconbitmap("ico.ico"))
+            # On n'applique l'icône que si on est sur Windows
+            if sys.platform.startswith("win"):
+                self.iconbitmap("ico.ico")
+                self.after(200, lambda: self.iconbitmap("ico.ico"))
         except:
             pass
 

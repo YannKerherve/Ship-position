@@ -11,7 +11,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-file: '3.11'
+          python-version: '3.11' # Il est plus sûr d'utiliser une version stable comme la 3.11 ou 3.12 pour PyInstaller
 
       - name: Install dependencies
         run: |
@@ -19,7 +19,7 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --noconfirm --onedir --windowed --add-data "static:static" main.py
+          pyinstaller --noconfirm --onedir --windowed --add-data "server/static:static" server/server_interface_travaillee.py
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4

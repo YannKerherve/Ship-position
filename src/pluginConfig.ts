@@ -2,7 +2,7 @@ import type { ExternalPluginConfig } from '@windy/interfaces';
 
 const config: ExternalPluginConfig = {
     name: 'windy-plugin-shipposition',
-    version: '3.0.3',
+    version: '3.0.4',
     icon: '🛰️',
     title: 'Ship Position',
     description: 'Ship Position',

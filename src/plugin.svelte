@@ -1043,35 +1043,25 @@ function logWeatherToConsole(weather) {
 
 function parseGLL(sentence) {
   const p = sentence.split(',');
+  if (p.length < 7) return;
 
-  // p[6] === 'A' → valid data
-  if (p.length < 7 || p[6] !== 'A') return;
+  // Fix: le checksum est collé au statut → "A*26" au lieu de "A"
+  const status = p[6].split('*')[0];
+  if (status !== 'A') return;
 
   const lat = parseCoord(p[1], p[2]);
   const lon = parseCoord(p[3], p[4]);
-
   if (isNaN(lat) || isNaN(lon)) return;
 
-  const newLat = lat;
-  const newLon = lon;
-
   if (lastLatitude !== null && lastLongitude !== null) {
-    courseOverGround = calculateBearing(
-      lastLatitude,
-      lastLongitude,
-      newLat,
-      newLon
-    );
+    courseOverGround = calculateBearing(lastLatitude, lastLongitude, lat, lon);
   }
 
-  lastLatitude = newLat;
-  lastLongitude = newLon;
-
-  latitude = newLat;
-  longitude = newLon;
-  updatePosition(newLat, newLon, 'GLL');
-  //addBoatMarker(newLat, newLon, courseOverGround);
-  //updateWeather(latitude, longitude);
+  lastLatitude = lat;
+  lastLongitude = lon;
+  latitude = lat;
+  longitude = lon;
+  updatePosition(lat, lon, 'GLL');
 }
 
 

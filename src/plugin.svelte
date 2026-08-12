@@ -1833,6 +1833,7 @@ function updateStatusDots() {
         <select class="select" bind:value={baudRate}>
           <option value={4800}>4800 Bauds</option>
           <option value={9600}>9600 Bauds</option>
+          <option value={19200}>19200 Bauds</option>
           <option value={38400}>38400 Bauds</option>
           <option value={115200}>115200 Bauds</option>
         </select>

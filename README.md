@@ -3,7 +3,7 @@
 Template for development of Windy Plugins.
 
 **Documentation at: [https://docs.windy-plugins.com/](https://docs.windy-plugins.com/)**
-**Documentation at: [https://docs.windy-plugins.com/](https://yannkerherve.github.io/position-plugin/)**
+**Documentation at: [https://yannkerherve.github.io/position-plugin/](https://yannkerherve.github.io/position-plugin/)**
 # CHANGELOG
 
 -   3.0.0
